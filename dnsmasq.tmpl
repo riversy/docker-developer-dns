@@ -1,0 +1,20 @@
+{{ define "host" }}
+    {{ $host := .Host }}
+    {{ range $index, $network := .Container.Networks }}
+        {{ if ne $network.IP "" }}
+address=/{{ $host }}/{{ $network.IP }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ range $host, $containers := groupByMulti $ "Env.DOMAIN_NAME" "," }}
+    {{ range $index, $container := $containers }}
+        {{ template "host" (dict "Container" $container "Host" (print $host)) }}
+    {{ end }}
+{{ end }}
+
+{{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
+    {{ range $index, $container := $containers }}
+        {{ template "host" (dict "Container" $container "Host" (print $host)) }}
+    {{ end }}
+{{ end }}
