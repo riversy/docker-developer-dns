@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while true #run indefinitely
+do
+inotifywait -e modify,attrib,close_write,move,create,delete /etc/resolv.conf && killall -9 dnsmasq
+done

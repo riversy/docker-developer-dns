@@ -5,7 +5,7 @@ set -e
 DOCKERGEN_VERSION=0.7.3
 
 apk update
-apk add --update ca-certificates wget dnsmasq supervisor
+apk add --update ca-certificates wget dnsmasq supervisor inotify-tools
 update-ca-certificates
 
 touch /etc/dnsmasq.d/generated.conf

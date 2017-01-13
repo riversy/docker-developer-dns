@@ -1,8 +1,7 @@
 FROM blackikeeagle/alpine:stable
 MAINTAINER Ike Devolder, ike.devolder@gmail.com
 
-COPY ./container /container
-COPY ./work /work
+COPY ./root /
 
 RUN /container/install-dnsmasq.sh
 
