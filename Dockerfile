@@ -9,6 +9,6 @@ WORKDIR /work/
 
 ENV DOCKER_HOST unix:///var/run/docker.sock
 
-EXPOSE 53/udp
+EXPOSE 53/udp 53
 
 CMD ["supervisord", "-c", "supervisord.conf"]
