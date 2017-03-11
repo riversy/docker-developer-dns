@@ -1,0 +1,17 @@
+[Unit]
+Description=developer-dns
+After=network-online.target docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker rm developer-dns
+ExecStartPre=-/usr/bin/docker pull blackikeeagle/developer-dns
+ExecStart=/usr/bin/docker run --rm --name developer-dns \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -p 127.0.0.1:53:53/udp \
+    -p 127.0.0.1:53:53 \
+    blackikeeagle/developer-dns
+ExecStop=/usr/bin/docker stop developer-dns
+
+[Install]
+WantedBy=multi-user.target
