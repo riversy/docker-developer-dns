@@ -11,7 +11,13 @@ This DNS will not try to create DNS entries for all running containers. You
 must define what containers you want to be available in the DNS by using
 `VIRTUAL_HOST` or `DOMAIN_NAME`.
 
-Usage
+Usage:
+
+1. [Install developer-dns](#installation)
+2. [Resolve developer-dns](#resolve-via-developer-dns)
+3. [Register docker containers](#let-a-container-have-a-dns-entry)  
+
+Installation
 -----
 
 To run this DNS server we need access to the docker socket so the DNS entries
@@ -91,11 +97,14 @@ example OSX users using [dinghy](https://github.com/codekitchen/dinghy).
 Resolve via developer-dns
 -------------------------
 
-On a system using resolvconf you can add this nameserver to the head.
+You need to make sure your host can resolve the docker dns entries.
 
+On a system using resolvconf (eg. ubuntu) you can add this nameserver to the head.
 ~~~ sh
 # echo "nameserver 127.0.0.1" > /etc/resolvconf/resolv.conf.d/head
 ~~~
+
+After making changes to resolvconf, you need to trigger a reload: `sudo resolvconf -u`
 
 On systems where openresolv is used you can use the file from
 [contrib](contrib/openresolv/resolvconf.conf) and place it in
