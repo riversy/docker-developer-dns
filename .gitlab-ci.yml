@@ -1,0 +1,33 @@
+---
+
+stages:
+  - prepare
+  - build
+  - release
+
+prepare:
+  stage: prepare
+  tags:
+    - blackikeeagledocker
+  script:
+    - docker pull blackikeeagle/alpine:stable
+  only:
+    - master
+
+build:
+  stage: build
+  tags:
+    - blackikeeagledocker
+  script:
+    - ./build.sh
+  only:
+    - master
+
+release:
+  stage: release
+  tags:
+    - blackikeeagledocker
+  script:
+    - docker push blackikeeagle/developer-dns
+  only:
+    - master
